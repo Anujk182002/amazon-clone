@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import './Login.css'
 import { Link, useHistory } from "react-router-dom"
-import { auth } from "../firebase"
+import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword  } from "firebase/auth";
 
 function Login() {
     
@@ -10,24 +10,41 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const history = useHistory();
-
-    const signIn = e => {
-      e.preventDefault();
-      auth.signInWithEmailAndPassword(email,password).then(auth=> {
-        history.push('/')
-      }).catch(error => alert(error.message))
-    }
-
-    const register = e => {
-      e.preventDefault();
-       
-      auth.createUserWithEmailAndPassword(email,password).then((auth) => {
-        if(auth) {
-          history.push('/')
-        }
-      }).catch(error=> alert(error.message));
-
-    }
+// for sign in
+    const signIn = e => {   
+      const auth = getAuth();
+      
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log("User Signed in :", user);
+          history.push('/');
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+        });
+      
+          }
+//for create new account
+          const register = e => { 
+            const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed up 
+          const user = userCredential.user;
+          console.log("User Signed Up :",user)
+          history.push('/');
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+        });
+      
+          }
 
   return (
     <div className='login'>
