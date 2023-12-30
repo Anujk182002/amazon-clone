@@ -18,26 +18,17 @@ function Checkout() {
           />
 
         <h2 className='checkout__title'> Your Shopping Basket</h2>
+          {basket.map(item =>(
+            <CheckoutProduct
+            id={item.id}
+            title={item.title}
+            image={item.image}
+            price={item.price}
+            rating={item.rating}
+            />
 
-        {/* {
-            basket.map(item =>( */}
-              <CheckoutProduct id="56215"
-                title="This is my Product"
-                image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
-                price="199"
-                rating="4"
-                />
-            
-                <CheckoutProduct id="51546"
-                    title="Samsung LC49RG90SSUXEN 49' Curved LED Gaming Monitor"
-                    image="https://images-na.ssl-images-amazon.com/images/I/71Swqqe7XAL._AC_SX466_.jpg"
-                    price="149"
-                    rating="3"
-                    />
-
-            {/* ))
-        } */}
-
+          ))}
+       
         
        </div> 
 

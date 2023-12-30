@@ -66,9 +66,10 @@ function Login() {
                 <h5>password</h5>
                 <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
                  
-                <button type='submit' onClick={signIn} className='login__signInButton'> Sign In</button> 
+                 
             </form>
-             
+            
+            <button  onClick={signIn} className='login__signInButton'> Sign In</button>
              <p>By Sign in You agree to view amazon clone terms and conditions of use oof sales
                 Please see our privacy policies , our cookies Notice and our Internet Based Ads Notice.
              </p>
