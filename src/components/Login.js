@@ -3,13 +3,15 @@ import { useState } from 'react'
 import './Login.css'
 import { Link, useHistory } from "react-router-dom"
 import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword  } from "firebase/auth";
+import { useStateValue } from '../providers/StateProvider';
 
 function Login() {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const history = useHistory();
+    const [{basket, user}, dispatch] = useStateValue();
+
 // for sign in
     const signIn = e => {   
       const auth = getAuth();
@@ -19,6 +21,14 @@ function Login() {
           // Signed in 
           const user = userCredential.user;
           console.log("User Signed in :", user);
+           
+          dispatch({
+             type: 'SET_USER',
+             user: user,
+
+          });
+
+
           history.push('/');
         })
         .catch((error) => {
@@ -36,6 +46,12 @@ function Login() {
           // Signed up 
           const user = userCredential.user;
           console.log("User Signed Up :",user)
+          dispatch({
+            type: 'SET_USER',
+            user: user,
+
+         });
+
           history.push('/');
         })
         .catch((error) => {
